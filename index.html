@@ -3,9 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Valorant Left-Click Distributed Computing Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body>
-    
+    <div class="slide-wrapper">
+        <svg id="presentation-slide" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <!-- Gradients & Glows -->
+                <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0F172A"/>
+                    <stop offset="100%" stop-color="#1E293B"/>
+                </linearGradient>
+                
+                <linearGradient id="card-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#1E293B"/>
+                    <stop offset="100%" stop-color="#0F172A"/>
+                </linearGradient>
+
+                <linearGradient id="red-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#FF4655"/>
+                    <stop offset="100%" stop-color="#E11D48"/>
+                </linearGradient>
+
+                <linearGradient id="blue-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#38BDF8"/>
+                    <stop offset="100%" stop-color="#0284C7"/>
+                </linearGradient>
+
+                <linearGradient id="green-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#34D399"/>
+                    <stop offset="100%" stop-color="#059669"/>
+                </linearGradient>
+
+                <!-- Markers -->
+                <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#38BDF8" />
+                </marker>
+                <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#34D399" />
+                </marker>
+                <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#FF4655" />
+                </marker>
+            </defs>
+
+            <!-- Background Slide Canvas -->
+            <rect width="1920" height="1080" fill="url(#bg-gradient)"/>
+            
+            <!-- Grid Lines (Subtle PowerPoint Grid) -->
+            <g stroke="#334155" stroke-width="1" opacity="0.15">
+                <line x1="0" y1="120" x2="1920" y2="120"/>
+                <line x1="0" y1="980" x2="1920" y2="980"/>
+                <line x1="640" y1="120" x2="640" y2="980"/>
+                <line x1="1280" y1="120" x2="1280" y2="980"/>
+            </g>
+
+            <!-- Slide Header -->
+            <g id="slide-header">
+                <rect x="60" y="45" width="260" height="28" rx="6" fill="#FF4655" opacity="0.15"/>
+                <text x="70" y="64" class="header-tag">DISTRIBUTED COMPUTING CASE STUDY</text>
+                <text x="60" y="105" class="header-title">What Happens When You Left-Click to Shoot in Valorant?</text>
+                <text x="1350" y="100" class="header-sub">Client Prediction • Server Lag Compensation • Authoritative State Sync</text>
+            </g>
+
+            <!-- CONNECTOR PATHS -->
+            <!-- Input Path: Client A to Server -->
+            <path id="path-client-server" d="M 540 380 L 710 380" stroke="#38BDF8" stroke-width="4" stroke-dasharray="8 6" fill="none" marker-end="url(#arrow-blue)"/>
+            
+            <!-- Return Path 1: Server to Client A -->
+            <path id="path-server-clienta" d="M 710 760 L 540 760" stroke="#34D399" stroke-width="4" stroke-dasharray="8 6" fill="none" marker-end="url(#arrow-green)"/>
+            
+            <!-- Return Path 2: Server to Client B -->
+            <path id="path-server-clientb" d="M 1210 570 L 1380 570" stroke="#FF4655" stroke-width="4" stroke-dasharray="8 6" fill="none" marker-end="url(#arrow-red)"/>
+
+            <!-- ================= NODE 1: CLIENT A (SHOOTER) ================= -->
+            <g id="node-client-a" transform="translate(80, 150)">
+                <!-- Card Container -->
+                <rect width="460" height="780" rx="16" fill="url(#card-grad)" stroke="#334155" stroke-width="2"/>
+                
+                <!-- Node Header -->
+                <rect width="460" height="60" rx="16" fill="#1E293B"/>
+                <circle cx="35" cy="30" r="14" fill="#38BDF8" opacity="0.2"/>
+                <text x="35" y="35" text-anchor="middle" font-size="14" fill="#38BDF8" font-weight="700">A</text>
+                <text x="65" y="36" class="node-title">CLIENT A (Shooter)</text>
+                <rect x="330" y="18" width="110" height="24" rx="12" fill="#38BDF8" opacity="0.15"/>
+                <text x="385" y="34" text-anchor="middle" font-size="11" fill="#38BDF8" font-weight="700">LOCAL CLIENT</text>
+
+                <!-- Step 1: Mouse Left Click -->
+                <g id="step-click" transform="translate(30, 80)">
+                    <rect width="400" height="150" rx="12" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+                    <g id="mouse-icon" transform="translate(30, 35)">
+                        <rect x="0" y="0" width="36" height="56" rx="18" fill="none" stroke="#38BDF8" stroke-width="3"/>
+                        <line x1="18" y1="0" x2="18" y2="22" stroke="#38BDF8" stroke-width="3"/>
+                        <!-- Left Click Highlight -->
+                        <path d="M 0 18 A 18 18 0 0 1 18 0 L 18 22 L 0 22 Z" fill="#38BDF8" id="left-click-btn"/>
+                        <circle id="click-ripple" cx="9" cy="11" r="18" fill="none" stroke="#38BDF8" stroke-width="2" opacity="0"/>
+                    </g>
+                    <text x="85" y="48" class="step-title">1. LEFT CLICK</text>
+                    <text x="85" y="72" class="step-sub">Player triggers shoot command at <tspan fill="#38BDF8" font-weight="700">Tick #102</tspan></text>
+                    
+                    <rect x="85" y="90" width="285" height="32" rx="6" fill="#1E293B" id="badge-click"/>
+                    <text x="100" y="111" font-size="12" fill="#94A3B8" font-weight="600">INPUT: <tspan fill="#F8FAFC">Vector Aim + Fire Cmd</tspan></text>
+                </g>
+
+                <!-- Step 2: Client Prediction -->
+                <g id="step-prediction" transform="translate(30, 250)">
+                    <rect width="400" height="210" rx="12" fill="#0F172A" stroke="#334155" stroke-width="1.5" id="card-prediction"/>
+                    <text x="25" y="38" class="step-title">2. CLIENT PREDICTION</text>
+                    <rect x="250" y="20" width="125" height="22" rx="4" fill="#38BDF8" opacity="0.15"/>
+                    <text x="312" y="35" text-anchor="middle" font-size="11" fill="#38BDF8" font-weight="700">0ms LATENCY FX</text>
+
+                    <text x="25" y="68" class="body-text">Client immediately plays local visuals:</text>
+                    
+                    <!-- Prediction Bullet Points -->
+                    <g transform="translate(25, 85)">
+                        <circle cx="6" cy="12" r="4" fill="#38BDF8"/>
+                        <text x="20" y="16" class="bullet-text">Instant Muzzle Flash & Sound</text>
+                        <circle cx="6" cy="38" r="4" fill="#38BDF8"/>
+                        <text x="20" y="42" class="bullet-text">Local Weapon Recoil Animation</text>
+                        <circle cx="6" cy="64" r="4" fill="#38BDF8"/>
+                        <text x="20" y="68" class="bullet-text">Tracer Line drawn on local screen</text>
+                    </g>
+                    
+                    <rect x="25" y="162" width="350" height="32" rx="6" fill="#1E293B"/>
+                    <text x="35" y="183" font-size="12" fill="#38BDF8" font-weight="600">WHY? <tspan fill="#94A3B8">Prevents game from feeling laggy</tspan></text>
+                </g>
+
+                <!-- Step 3: State Reconciliation Outcome -->
+                <g id="step-clienta-outcome" transform="translate(30, 480)">
+                    <rect width="400" height="260" rx="12" fill="#0F172A" stroke="#334155" stroke-width="1.5" id="card-clienta-outcome"/>
+                    <text x="25" y="38" class="step-title">6. LOCAL RECONCILIATION</text>
+                    <text x="25" y="68" class="body-text">Receives Authoritative Server Snapshot:</text>
+
+                    <g transform="translate(25, 90)">
+                        <!-- Hitmarker Box -->
+                        <rect width="350" height="65" rx="8" fill="#1E293B" stroke="#34D399" stroke-width="1.5" opacity="0.3" id="hitmarker-box"/>
+                        <text x="20" y="30" class="badge-text" fill="#34D399" id="hitmarker-txt">🎯 HIT CONFIRMED (150 HP)</text>
+                        <text x="20" y="50" font-size="12" fill="#94A3B8">Red Crosshair Hitmarker + Audio Cue</text>
+                    </g>
+
+                    <g transform="translate(25, 170)">
+                        <!-- Kill Banner Box -->
+                        <rect width="350" height="65" rx="8" fill="#1E293B" stroke="#34D399" stroke-width="1.5" opacity="0.3" id="killbanner-box"/>
+                        <text x="20" y="30" class="badge-text" fill="#34D399" id="killbanner-txt">💀 KILL BANNER DISPLAYED</text>
+                        <text x="20" y="50" font-size="12" fill="#94A3B8">Client state reconciled with Server</text>
+                    </g>
+                </g>
+            </g>
+
+            <!-- ================= NODE 2: GAME SERVER (AUTHORITATIVE) ================= -->
+            <g id="node-server" transform="translate(730, 150)">
+                <!-- Card Container -->
+                <rect width="460" height="780" rx="16" fill="url(#card-grad)" stroke="#334155" stroke-width="2"/>
+                
+                <!-- Node Header -->
+                <rect width="460" height="60" rx="16" fill="#1E293B"/>
+                <rect x="25" y="18" width="24" height="24" rx="4" fill="#6366F1" opacity="0.2"/>
+                <text x="37" y="35" text-anchor="middle" font-size="14" fill="#818CF8" font-weight="700">S</text>
+                <text x="60" y="36" class="node-title">RIOT GAME SERVER</text>
+                <rect x="310" y="18" width="130" height="24" rx="12" fill="#818CF8" opacity="0.15"/>
+                <text x="375" y="34" text-anchor="middle" font-size="11" fill="#818CF8" font-weight="700">128-TICK AUTH</text>
+
+                <!-- Step 3: Input Receive & Rewind Buffer -->
+                <g id="step-rewind" transform="translate(30, 80)">
+                    <rect width="400" height="260" rx="12" fill="#0F172A" stroke="#334155" stroke-width="1.5" id="card-rewind"/>
+                    <text x="25" y="35" class="step-title">3. LAG COMPENSATION (REWIND)</text>
+                    <text x="25" y="60" class="body-text">Server receives packet at <tspan fill="#FF4655" font-weight="700">Server Tick #104</tspan> (~20ms ping):</text>
+
+                    <!-- Tick History Buffer Visualization -->
+                    <g transform="translate(25, 80)" id="tick-buffer">
+                        <text x="0" y="15" font-size="11" fill="#64748B" font-weight="700">SERVER TICK BUFFER (LAST 1 SEC):</text>
+                        
+                        <g transform="translate(0, 28)">
+                            <!-- Tick 100 -->
+                            <rect x="0" y="0" width="65" height="45" rx="6" fill="#1E293B" stroke="#334155"/>
+                            <text x="32" y="27" text-anchor="middle" font-size="12" fill="#64748B">#100</text>
+                            
+                            <!-- Tick 101 -->
+                            <rect x="75" y="0" width="65" height="45" rx="6" fill="#1E293B" stroke="#334155"/>
+                            <text x="107" y="27" text-anchor="middle" font-size="12" fill="#64748B">#101</text>
+                            
+                            <!-- Tick 102 (TARGET REWIND TICK) -->
+                            <rect x="150" y="0" width="75" height="45" rx="6" fill="#1E293B" stroke="#38BDF8" stroke-width="2" id="tick-102-box"/>
+                            <text x="187" y="22" text-anchor="middle" font-size="12" fill="#38BDF8" font-weight="700">#102</text>
+                            <text x="187" y="37" text-anchor="middle" font-size="9" fill="#38BDF8">SHOT TICK</text>
+
+                            <!-- Tick 103 -->
+                            <rect x="235" y="0" width="55" height="45" rx="6" fill="#1E293B" stroke="#334155"/>
+                            <text x="262" y="27" text-anchor="middle" font-size="12" fill="#64748B">#103</text>
+
+                            <!-- Tick 104 (RECV TICK) -->
+                            <rect x="300" y="0" width="55" height="45" rx="6" fill="#1E293B" stroke="#FF4655" stroke-width="1.5" id="tick-104-box"/>
+                            <text x="327" y="27" text-anchor="middle" font-size="12" fill="#FF4655" font-weight="700">#104</text>
+                        </g>
+
+                        <!-- Rewind Curve Arrow -->
+                        <path id="rewind-arrow" d="M 327 78 C 327 105, 187 105, 187 78" stroke="#38BDF8" stroke-width="2.5" fill="none" stroke-dasharray="4 4" marker-end="url(#arrow-blue)" opacity="0"/>
+                        <text id="rewind-label" x="257" y="112" text-anchor="middle" font-size="11" fill="#38BDF8" font-weight="700" opacity="0">⏪ REWIND 2 TICKS (-15.6ms)</text>
+                    </g>
+
+                    <rect x="25" y="210" width="350" height="34" rx="6" fill="#1E293B"/>
+                    <text x="35" y="232" font-size="12" fill="#94A3B8">Recreates player positions at exact moment of click.</text>
+                </g>
+
+                <!-- Step 4: Authoritative Hit Validation -->
+                <g id="step-validation" transform="translate(30, 360)">
+                    <rect width="400" height="230" rx="12" fill="#0F172A" stroke="#334155" stroke-width="1.5" id="card-validation"/>
+                    <text x="25" y="35" class="step-title">4. AUTHORITATIVE HIT VALIDATION</text>
+                    
+                    <!-- Server Raycast Graphic -->
+                    <g transform="translate(25, 55)">
+                        <rect width="350" height="90" rx="8" fill="#1E293B"/>
+                        <!-- Shooter head vector -->
+                        <circle cx="40" cy="45" r="14" fill="#38BDF8" opacity="0.3"/>
+                        <text x="40" y="50" text-anchor="middle" font-size="11" fill="#38BDF8" font-weight="700">A</text>
+                        
+                        <!-- Bullet Raycast Line -->
+                        <line x1="60" y1="45" x2="280" y2="45" stroke="#FF4655" stroke-width="3" stroke-dasharray="6 4" id="server-raycast"/>
+                        
+                        <!-- Target Capsule Hitbox at Tick 102 -->
+                        <rect x="280" y="15" width="30" height="60" rx="15" fill="#FF4655" opacity="0.3" stroke="#FF4655" stroke-width="2" id="target-hitbox"/>
+                        <text x="295" y="50" text-anchor="middle" font-size="11" fill="#FF4655" font-weight="700">B</text>
+
+                        <circle cx="280" cy="45" r="10" fill="#F59E0B" opacity="0" id="impact-flash"/>
+                    </g>
+
+                    <rect x="25" y="160" width="350" height="50" rx="8" fill="#059669" opacity="0.15" stroke="#059669" stroke-width="1.5" id="badge-hit-result"/>
+                    <text x="200" y="182" text-anchor="middle" class="badge-text" fill="#34D399" id="txt-hit-result">HEADSHOT VALIDATED → 150 DAMAGE</text>
+                    <text x="200" y="200" text-anchor="middle" font-size="11" fill="#94A3B8">Client B Health: 150 → 0 (Eliminated)</text>
+                </g>
+
+                <!-- Step 5: Broadcast State Generation -->
+                <g id="step-broadcast" transform="translate(30, 610)">
+                    <rect width="400" height="130" rx="12" fill="#0F172A" stroke="#334155" stroke-width="1.5" id="card-broadcast"/>
+                    <text x="25" y="35" class="step-title">5. WORLD STATE BROADCAST</text>
+                    <text x="25" y="60" class="body-text">Packs Delta Snapshot containing new game state:</text>
+                    <rect x="25" y="75" width="350" height="36" rx="6" fill="#1E293B"/>
+                    <text x="35" y="98" font-size="12" fill="#34D399" font-weight="600">UDP SNAPSHOT: <tspan fill="#F8FAFC">A=Kill, B=Dead, World=Updated</tspan></text>
+                </g>
+            </g>
+
+            <!-- ================= NODE 3: CLIENT B (TARGET) ================= -->
+            <g id="node-client-b" transform="translate(1380, 150)">
+                <!-- Card Container -->
+                <rect width="460" height="780" rx="16" fill="url(#card-grad)" stroke="#334155" stroke-width="2"/>
+                
+                <!-- Node Header -->
+                <rect width="460" height="60" rx="16" fill="#1E293B"/>
+                <circle cx="35" cy="30" r="14" fill="#FF4655" opacity="0.2"/>
+                <text x="35" y="35" text-anchor="middle" font-size="14" fill="#FF4655" font-weight="700">B</text>
+                <text x="65" y="36" class="node-title">CLIENT B (Target)</text>
+                <rect x="330" y="18" width="110" height="24" rx="12" fill="#FF4655" opacity="0.15"/>
+                <text x="385" y="34" text-anchor="middle" font-size="11" fill="#FF4655" font-weight="700">VICTIM CLIENT</text>
+
+                <!-- State Sync Outcome -->
+                <g id="step-clientb-state" transform="translate(30, 80)">
+                    <rect width="400" height="660" rx="12" fill="#0F172A" stroke="#334155" stroke-width="1.5" id="card-clientb-outcome"/>
+                    <text x="25" y="38" class="step-title">7. AUTHORITATIVE STATE SYNC</text>
+                    <text x="25" y="68" class="body-text">Client B receives authoritative update from server:</text>
+
+                    <!-- Player Health Card -->
+                    <g transform="translate(25, 95)">
+                        <rect width="350" height="120" rx="10" fill="#1E293B" stroke="#FF4655" stroke-width="1.5" opacity="0.4" id="hp-box"/>
+                        <text x="20" y="35" font-size="13" fill="#94A3B8" font-weight="700">PLAYER HEALTH STATE</text>
+                        <text x="20" y="80" font-size="36" fill="#FF4655" font-weight="800" id="hp-text">100 HP</text>
+                        <text x="180" y="75" font-size="14" fill="#94A3B8">→ <tspan fill="#FF4655" font-weight="700" id="hp-change">0 HP</tspan></text>
+                    </g>
+
+                    <!-- Ragdoll / Death Trigger -->
+                    <g transform="translate(25, 235)">
+                        <rect width="350" height="100" rx="10" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+                        <text x="20" y="35" class="step-title">CLIENT B VISUAL EFFECTS</text>
+                        <g transform="translate(20, 50)">
+                            <circle cx="6" cy="12" r="4" fill="#FF4655"/>
+                            <text x="20" y="16" class="bullet-text">Triggers Character Ragdoll Animation</text>
+                            <circle cx="6" cy="32" r="4" fill="#FF4655"/>
+                            <text x="20" y="36" class="bullet-text">Red Directional Damage Indicator</text>
+                        </g>
+                    </g>
+
+                    <!-- Fairness Explanation Box -->
+                    <g transform="translate(25, 355)">
+                        <rect width="350" height="260" rx="10" fill="#1E293B" stroke="#6366F1" stroke-width="1.5"/>
+                        <rect x="20" y="20" width="160" height="22" rx="4" fill="#6366F1" opacity="0.2"/>
+                        <text x="100" y="35" text-anchor="middle" font-size="11" fill="#818CF8" font-weight="700">DISTRIBUTED FAIRNESS</text>
+                        
+                        <text x="20" y="70" class="step-title" fill="#F8FAFC">Why Lag Compensation Works:</text>
+                        <text x="20" y="98" font-size="12" fill="#94A3B8" width="310">
+                            <tspan x="20" dy="0">Without server rewind, high-ping players</tspan>
+                            <tspan x="20" dy="18">would have to lead their shots to compensate</tspan>
+                            <tspan x="20" dy="18">for latency.</tspan>
+                            <tspan x="20" dy="28" fill="#34D399" font-weight="600">Valorant's server guarantees: "If you</tspan>
+                            <tspan x="20" dy="18" fill="#34D399" font-weight="600">clicked on their head on your screen, it hits."</tspan>
+                        </text>
+
+                        <rect x="20" y="195" width="310" height="45" rx="6" fill="#0F172A"/>
+                        <text x="35" y="215" font-size="11" fill="#818CF8" font-weight="700">SERVER IS AUTHORITATIVE</text>
+                        <text x="35" y="230" font-size="11" fill="#94A3B8">Clients never decide hits—only the server.</text>
+                    </g>
+                </g>
+            </g>
+
+            <!-- ================= MOVING PACKET GRAPHICS ================= -->
+            <!-- 1. Input UserCmd Packet (Client A -> Server) -->
+            <g id="packet-input" transform="translate(540, 380)" opacity="0">
+                <circle cx="0" cy="0" r="14" fill="#38BDF8" filter="drop-shadow(0 0 8px #38BDF8)"/>
+                <text x="0" y="4" text-anchor="middle" font-size="10" fill="#0F172A" font-weight="800">UDP</text>
+                <rect x="-60" y="-38" width="120" height="22" rx="4" fill="#0F172A" stroke="#38BDF8" stroke-width="1"/>
+                <text x="0" y="-23" text-anchor="middle" font-size="10" fill="#38BDF8" font-weight="700">UserCmd #102</text>
+            </g>
+
+            <!-- 2. Response Packet A (Server -> Client A) -->
+            <g id="packet-response-a" transform="translate(710, 760)" opacity="0">
+                <circle cx="0" cy="0" r="14" fill="#34D399" filter="drop-shadow(0 0 8px #34D399)"/>
+                <text x="0" y="4" text-anchor="middle" font-size="10" fill="#0F172A" font-weight="800">SYNC</text>
+                <rect x="-65" y="16" width="130" height="22" rx="4" fill="#0F172A" stroke="#34D399" stroke-width="1"/>
+                <text x="0" y="31" text-anchor="middle" font-size="10" fill="#34D399" font-weight="700">Hit Snapshot #105</text>
+            </g>
+
+            <!-- 3. Response Packet B (Server -> Client B) -->
+            <g id="packet-response-b" transform="translate(1210, 570)" opacity="0">
+                <circle cx="0" cy="0" r="14" fill="#FF4655" filter="drop-shadow(0 0 8px #FF4655)"/>
+                <text x="0" y="4" text-anchor="middle" font-size="10" fill="#0F172A" font-weight="800">KILL</text>
+                <rect x="-65" y="-38" width="130" height="22" rx="4" fill="#0F172A" stroke="#FF4655" stroke-width="1"/>
+                <text x="0" y="-23" text-anchor="middle" font-size="10" fill="#FF4655" font-weight="700">State Snapshot #105</text>
+            </g>
+
+            <!-- ================= SLIDE FOOTER ================= -->
+            <g id="slide-footer" transform="translate(60, 995)">
+                <rect width="1800" height="45" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+                <text x="25" y="27" font-size="13" fill="#94A3B8" font-weight="600">DISTRIBUTED SYSTEM ARCHITECTURE:</text>
+                <text x="270" y="27" font-size="13" fill="#38BDF8" font-weight="700">Client Prediction</text>
+                <text x="390" y="27" font-size="13" fill="#64748B">──►</text>
+                <text x="430" y="27" font-size="13" fill="#818CF8" font-weight="700">UDP Transport (~20ms)</text>
+                <text x="590" y="27" font-size="13" fill="#64748B">──►</text>
+                <text x="630" y="27" font-size="13" fill="#F59E0B" font-weight="700">Server Tick Rewind</text>
+                <text x="770" y="27" font-size="13" fill="#64748B">──►</text>
+                <text x="810" y="27" font-size="13" fill="#34D399" font-weight="700">Authoritative State Broadcast</text>
+
+                <text x="1775" y="27" text-anchor="end" font-size="12" fill="#64748B" font-weight="600">VALORANT 128-TICK NETCODE</text>
+            </g>
+        </svg>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

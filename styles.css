@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0B0F19;
+    color: #F8FAFC;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 16:9 Presentation Container */
+.slide-wrapper {
+    width: 100vw;
+    height: 56.25vw; /* 16:9 aspect ratio (1080 / 1920) */
+    max-height: 100vh;
+    max-width: 177.78vh; /* 16:9 aspect ratio (1920 / 1080) */
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    border: 1px solid #1E293B;
+}
+
+#presentation-slide {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Typography styles inside SVG */
+.header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    fill: #FF4655;
+    letter-spacing: 1px;
+}
+
+.header-title {
+    font-size: 38px;
+    font-weight: 800;
+    fill: #F8FAFC;
+    letter-spacing: -0.5px;
+}
+
+.header-sub {
+    font-size: 15px;
+    font-weight: 600;
+    fill: #64748B;
+}
+
+.node-title {
+    font-size: 18px;
+    font-weight: 800;
+    fill: #F8FAFC;
+    letter-spacing: 0.5px;
+}
+
+.step-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    fill: #94A3B8;
+    letter-spacing: 0.5px;
+}
+
+.step-sub {
+    font-size: 13px;
+    fill: #CBD5E1;
+}
+
+.body-text {
+    font-size: 13px;
+    fill: #94A3B8;
+}
+
+.bullet-text {
+    font-size: 13px;
+    fill: #E2E8F0;
+    font-weight: 500;
+}
+
+.badge-text {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
