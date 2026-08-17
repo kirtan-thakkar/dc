@@ -135,16 +135,78 @@ body {
 
 .box.giant {
     width: 350px;
-    height: 350px;
+    height: 370px;
     font-size: 2.5rem;
     justify-content: flex-start;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .box.placeholder {
     border-color: #ccc;
     color: #ccc;
 }
+
+/* Protocol Tags and Text */
+.protocol-tag {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #444;
+    font-style: italic;
+    margin-top: 15px;
+    opacity: 0;
+    transition: opacity 0.5s;
+    background-color: #eee;
+    padding: 8px 12px;
+    border: 2px solid #999;
+}
+
+.protocol-tag.show {
+    opacity: 1;
+}
+
+.top-tag {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.center-tag {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+/* OSI Journey Sequence */
+.osi-journey {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    align-items: center;
+}
+
+.osi-step {
+    font-size: 1.1rem;
+    background-color: #fff;
+    padding: 5px 15px;
+    border: 2px solid #666;
+    border-radius: 5px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.osi-step.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 /* Scene 1: Laser */
 .action-area {
@@ -191,6 +253,7 @@ body {
     justify-content: center;
     position: relative;
     padding: 0 40px;
+    height: 100%;
 }
 
 .internet-label {
@@ -224,7 +287,7 @@ body {
     left: 40px;
     z-index: 3;
     opacity: 0;
-    transition: left 4s linear; /* Slowed down movement */
+    transition: left 4s linear; /* Slow movement */
 }
 
 .data-packet.move {
@@ -234,7 +297,7 @@ body {
 
 /* Scene 3: Calc Steps */
 .calc-steps {
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -269,6 +332,7 @@ body {
     justify-content: center;
     position: relative;
     padding: 0 20px;
+    height: 100%;
 }
 
 .sync-line {

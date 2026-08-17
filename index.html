@@ -12,35 +12,34 @@
 <body>
     <div class="presentation-wrapper">
         
-        <!-- Persistent Header -->
-        <div class="main-header">
-            <h3>Case Study: Distributed Computing in Gaming</h3>
-            <h1>What happens when a player left-clicks to shoot in Valorant?</h1>
-        </div>
+
 
         <!-- SCENE 1: Left Click (Local) -->
         <div class="scene" id="scene-1">
-            <h2 class="scene-title">Step 1: The Left Click (Local Prediction)</h2>
+            <h2 class="scene-title">Stage 1: The Left Click </h2>
             <p class="scene-desc">The player clicks. To prevent the game from feeling laggy, the client immediately plays a gunshot animation locally.</p>
             
             <div class="scene-content flex-row">
-                <div class="box">Player Client</div>
+                <div class="box">
+                    Player Client
+                    <div class="protocol-tag" id="s1-tag">OSI L7 (Application)<br>Generates Custom Game Message</div>
+                </div>
                 
                 <div class="action-area">
-                    <div class="action-text" id="s1-click">⭐ LEFT CLICK!</div>
+                    <div class="action-text" id="s1-click"> LEFT CLICK!</div>
                     <div class="laser-track">
                         <div class="laser-beam" id="s1-laser"></div>
                     </div>
                 </div>
                 
-                <div class="box placeholder">Target (Local Illusion)</div>
+                <div class="box placeholder">Target</div>
             </div>
         </div>
 
         <!-- SCENE 2: How Data Travels -->
         <div class="scene" id="scene-2">
-            <h2 class="scene-title">Step 2: How Data Travels</h2>
-            <p class="scene-desc">The local shot is just an illusion. The actual "Fire Request" data must travel across the Internet using standard network protocols.</p>
+            <h2 class="scene-title">Stage 2: How Data Travels (The OSI Journey)</h2>
+            <p class="scene-desc">The local shot is just an illusion. The actual "Fire Request" data must be encapsulated and travel across the Internet.</p>
             
             <div class="scene-content flex-row">
                 <div class="box">Player Client</div>
@@ -48,7 +47,14 @@
                 <div class="transit-area">
                     <div class="internet-label">INTERNET</div>
                     <div class="path-line"></div>
-                    <div class="data-packet" id="s2-packet">UDP Game Data</div>
+                    <div class="data-packet" id="s2-packet">Game Data</div>
+                    
+                    <div class="osi-journey" id="s2-osi">
+                        <div class="osi-step" id="osi-65"> Data Encoded & Tagged with Match Session</div>
+                        <div class="osi-step" id="osi-4">Transport: Encapsulated in UDP Protocol (Fast/Connectionless)</div>
+                        <div class="osi-step" id="osi-3">Network: Encapsulated in IP Protocol (Routing)</div>
+                        <div class="osi-step" id="osi-21">Link/Physical: Transmitted via Wi-Fi/Ethernet Signals</div>
+                    </div>
                 </div>
 
                 <div class="box server">Game Server</div>
@@ -57,12 +63,13 @@
 
         <!-- SCENE 3: Server Processing -->
         <div class="scene" id="scene-3">
-            <h2 class="scene-title">Step 3: Server Processing (Authority)</h2>
-            <p class="scene-desc">The game server receives the packet. It is the only authority that can decide if the shot actually hit anything.</p>
+            <h2 class="scene-title">Stage 3: Server Processing (Authority)</h2>
+            <p class="scene-desc">The server receives the signals and decapsulates the data back up to the Application Layer.</p>
             
             <div class="scene-content">
                 <div class="box server giant">
                     Game Server
+                    <div class="protocol-tag top-tag" id="s3-tag">OSI L1 → L7: Data Decapsulated</div>
                     <div class="calc-steps">
                         <div class="step" id="s3-step1">1. Receive Fire Request</div>
                         <div class="step" id="s3-step2">2. Check Player Positions</div>
@@ -74,7 +81,7 @@
 
         <!-- SCENE 4: State Synchronization -->
         <div class="scene" id="scene-4">
-            <h2 class="scene-title">Step 4: State Synchronization</h2>
+            <h2 class="scene-title">Stage 4: State Synchronization</h2>
             <p class="scene-desc">The server sends the "Updated Game State" back across the network to all clients, synchronizing everyone's reality.</p>
             
             <div class="scene-content wide-row">
@@ -84,6 +91,7 @@
                 </div>
                 
                 <div class="sync-area">
+                    <div class="protocol-tag center-tag" id="s4-tag">State broadcast over UDP/IP Networks</div>
                     <div class="sync-line left">
                         <div class="sync-packet" id="s4-packet-a">State Data</div>
                     </div>
