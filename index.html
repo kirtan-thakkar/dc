@@ -115,77 +115,84 @@
             <h1>OS Architecture & Flow</h1>
         </header>
 
-        <div class="flowchart">
+        <!-- Use a 2-column layout to prevent overlaps -->
+        <div class="presentation-body">
             
-            <!-- Context Box -->
-            <div class="info-panel" id="info-panel">
-                <h3 id="info-title">System Idle</h3>
-                <p id="info-desc">Waiting for user input.</p>
-            </div>
-
-            <!-- LEVEL 1: Apps -->
-            <div class="flow-row">
-                <div class="node app rough-box" id="app-yt">YouTube App</div>
-                <div class="node app rough-box" id="app-wa">WhatsApp</div>
-            </div>
-
-            <div class="flow-row">
-                <div class="arrow" id="arrow-1">↓ processes spawned ↓</div>
-            </div>
-
-            <!-- LEVEL 2: Threads -->
-            <div class="flow-row multi-col">
-                <div class="thread-group" id="threads-yt">
-                    <div class="node thread rough-box">T1: Video</div>
-                    <div class="node thread rough-box">T2: Audio</div>
-                    <div class="node thread rough-box">T3: Buffer</div>
-                </div>
-                <div class="thread-group" id="threads-wa">
-                    <div class="node thread rough-box">T1: UI</div>
-                    <div class="node thread rough-box">T2: Network</div>
-                    <div class="node thread rough-box">T3: Noti</div>
+            <!-- LEFT COLUMN: Context Sticky Note -->
+            <div class="sidebar">
+                <div class="info-panel" id="info-panel">
+                    <h3 id="info-title">System Idle</h3>
+                    <p id="info-desc">Waiting for user input.</p>
                 </div>
             </div>
 
-            <div class="flow-row">
-                <div class="arrow" id="arrow-2">↓ threads scheduled ↓</div>
-            </div>
+            <!-- RIGHT COLUMN: The Flowchart -->
+            <div class="flowchart">
+                
+                <!-- LEVEL 1: Apps -->
+                <div class="flow-row">
+                    <div class="node app rough-box" id="app-yt">YouTube App</div>
+                    <div class="node app rough-box" id="app-wa">WhatsApp</div>
+                </div>
 
-            <!-- LEVEL 3: OS Scheduler -->
-            <div class="flow-row">
-                <div class="node scheduler rough-box" id="os-scheduler">OS Scheduler</div>
-            </div>
+                <div class="flow-row">
+                    <div class="arrow" id="arrow-1">↓ processes spawned ↓</div>
+                </div>
 
-            <div class="flow-row">
-                <div class="arrow" id="arrow-3">↓ mapped to cores ↓</div>
-            </div>
-
-            <!-- LEVEL 4: CPU Cores -->
-            <div class="flow-row">
-                <div class="cpu-container rough-box" id="cpu">
-                    <div class="cpu-title">6-Core CPU</div>
-                    <div class="core-grid">
-                        <div class="node core perf rough-box">P-Core 1<br><small>Fetch→Decode→Exec</small></div>
-                        <div class="node core perf rough-box">P-Core 2<br><small>Fetch→Decode→Exec</small></div>
-                        <div class="node core eff rough-box">E-Core 1<br><small>Fetch→Decode→Exec</small></div>
-                        <div class="node core eff rough-box">E-Core 2<br><small>Fetch→Decode→Exec</small></div>
-                        <div class="node core eff rough-box">E-Core 3<br><small>Fetch→Decode→Exec</small></div>
-                        <div class="node core eff rough-box">E-Core 4<br><small>Fetch→Decode→Exec</small></div>
+                <!-- LEVEL 2: Threads -->
+                <div class="flow-row multi-col">
+                    <div class="thread-group" id="threads-yt">
+                        <div class="node thread rough-box">T1: Video</div>
+                        <div class="node thread rough-box">T2: Audio</div>
+                        <div class="node thread rough-box">T3: Buffer</div>
+                    </div>
+                    <div class="thread-group" id="threads-wa">
+                        <div class="node thread rough-box">T1: UI</div>
+                        <div class="node thread rough-box">T2: Network</div>
+                        <div class="node thread rough-box">T3: Noti</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="flow-row">
-                <div class="arrow" id="arrow-4">↓ data flows to memory ↓</div>
-            </div>
+                <div class="flow-row">
+                    <div class="arrow" id="arrow-2">↓ threads scheduled ↓</div>
+                </div>
 
-            <!-- LEVEL 5: Memory & Display -->
-            <div class="flow-row vertical-stack">
-                <div class="node mem rough-box" id="cache">Cache Hierarchy</div>
-                <div class="node mem rough-box" id="ram">RAM</div>
-                <div class="node display rough-box" id="display">Display Output</div>
+                <!-- LEVEL 3: OS Scheduler -->
+                <div class="flow-row">
+                    <div class="node scheduler rough-box" id="os-scheduler">OS Scheduler</div>
+                </div>
+
+                <div class="flow-row">
+                    <div class="arrow" id="arrow-3">↓ mapped to cores ↓</div>
+                </div>
+
+                <!-- LEVEL 4: CPU Cores -->
+                <div class="flow-row">
+                    <div class="cpu-container rough-box" id="cpu">
+                        <div class="cpu-title">6-Core CPU</div>
+                        <div class="core-grid">
+                            <div class="node core perf rough-box">P-Core 1<br><small>Fetch→Decode→Exec</small></div>
+                            <div class="node core perf rough-box">P-Core 2<br><small>Fetch→Decode→Exec</small></div>
+                            <div class="node core eff rough-box">E-Core 1<br><small>Fetch→Decode→Exec</small></div>
+                            <div class="node core eff rough-box">E-Core 2<br><small>Fetch→Decode→Exec</small></div>
+                            <div class="node core eff rough-box">E-Core 3<br><small>Fetch→Decode→Exec</small></div>
+                            <div class="node core eff rough-box">E-Core 4<br><small>Fetch→Decode→Exec</small></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-row">
+                    <div class="arrow" id="arrow-4">↓ data flows to memory ↓</div>
+                </div>
+
+                <!-- LEVEL 5: Memory & Display -->
+                <div class="flow-row vertical-stack">
+                    <div class="node mem rough-box" id="cache">Cache Hierarchy</div>
+                    <div class="node mem rough-box" id="ram">RAM</div>
+                    <div class="node display rough-box" id="display">Display Output</div>
+                </div>
+                
             </div>
-            
         </div>
     </div>
     <!-- ================= PERSON 2 END ================= -->
