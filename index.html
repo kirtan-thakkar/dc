@@ -3,52 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valorant Shot - Distributed Computing</title>
+    <!-- Person 1 Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Person 2 Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <title>Distributed Computing & OS Architecture</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- ================= PERSON 1 START (COMMENTED OUT) ================= -->
+    <!--
     <div class="presentation-wrapper">
-        
+        <div class="main-header">
+            <h3>Case Study: Distributed Computing in Gaming</h3>
+            <h1>What happens when a player left-clicks to shoot in Valorant?</h1>
+        </div>
 
-
-        <!-- SCENE 1: Left Click (Local) -->
         <div class="scene" id="scene-1">
             <h2 class="scene-title">Stage 1: The Left Click </h2>
             <p class="scene-desc">The player clicks. To prevent the game from feeling laggy, the client immediately plays a gunshot animation locally.</p>
-            
             <div class="scene-content flex-row">
                 <div class="box">
                     Player Client
                     <div class="protocol-tag" id="s1-tag">OSI L7 (Application)<br>Generates Custom Game Message</div>
                 </div>
-                
                 <div class="action-area">
                     <div class="action-text" id="s1-click"> LEFT CLICK!</div>
                     <div class="laser-track">
                         <div class="laser-beam" id="s1-laser"></div>
                     </div>
                 </div>
-                
                 <div class="box placeholder">Target</div>
             </div>
         </div>
 
-        <!-- SCENE 2: How Data Travels -->
         <div class="scene" id="scene-2">
             <h2 class="scene-title">Stage 2: How Data Travels (The OSI Journey)</h2>
             <p class="scene-desc">The local shot is just an illusion. The actual "Fire Request" data must be encapsulated and travel across the Internet.</p>
-            
             <div class="scene-content flex-row">
                 <div class="box">Player Client</div>
-                
                 <div class="transit-area">
                     <div class="internet-label">INTERNET</div>
                     <div class="path-line"></div>
                     <div class="data-packet" id="s2-packet">Game Data</div>
-                    
                     <div class="osi-journey" id="s2-osi">
                         <div class="osi-step" id="osi-65"> Data Encoded & Tagged with Match Session</div>
                         <div class="osi-step" id="osi-4">Transport: Encapsulated in UDP Protocol (Fast/Connectionless)</div>
@@ -56,16 +58,13 @@
                         <div class="osi-step" id="osi-21">Link/Physical: Transmitted via Wi-Fi/Ethernet Signals</div>
                     </div>
                 </div>
-
                 <div class="box server">Game Server</div>
             </div>
         </div>
 
-        <!-- SCENE 3: Server Processing -->
         <div class="scene" id="scene-3">
             <h2 class="scene-title">Stage 3: Server Processing (Authority)</h2>
             <p class="scene-desc">The server receives the signals and decapsulates the data back up to the Application Layer.</p>
-            
             <div class="scene-content">
                 <div class="box server giant">
                     Game Server
@@ -79,17 +78,14 @@
             </div>
         </div>
 
-        <!-- SCENE 4: State Synchronization -->
         <div class="scene" id="scene-4">
             <h2 class="scene-title">Stage 4: State Synchronization</h2>
             <p class="scene-desc">The server sends the "Updated Game State" back across the network to all clients, synchronizing everyone's reality.</p>
-            
             <div class="scene-content wide-row">
                 <div class="box" id="s4-client-a">
                     Player Client
                     <div class="result-text" id="s4-res-a">Show Hitmarker!</div>
                 </div>
-                
                 <div class="sync-area">
                     <div class="protocol-tag center-tag" id="s4-tag">State broadcast over UDP/IP Networks</div>
                     <div class="sync-line left">
@@ -100,15 +96,84 @@
                         <div class="sync-packet" id="s4-packet-b">State Data</div>
                     </div>
                 </div>
-
                 <div class="box" id="s4-client-b">
                     Target Client
                     <div class="result-text dead" id="s4-res-b">Take Damage!</div>
                 </div>
             </div>
         </div>
-
     </div>
+    -->
+    <!-- ================= PERSON 1 END ================= -->
+
+
+
+    <!-- ================= PERSON 2 START (ACTIVE) ================= -->
+    <div class="tech-wrapper">
+        <header class="tech-header">
+            <h2>iPhone 17 Pro (A19 Pro SoC)</h2>
+            <h1>OS Architecture & Complete Work Flow</h1>
+        </header>
+
+        <div class="flowchart">
+            
+            <!-- Context Box -->
+            <div class="info-panel" id="info-panel">
+                <h3 id="info-title">System Idle</h3>
+                <p id="info-desc">Waiting for user input.</p>
+            </div>
+
+            <!-- LEVEL 1: Apps -->
+            <div class="flow-row">
+                <div class="node app" id="app-yt">YouTube</div>
+                <div class="node app" id="app-wa">WhatsApp</div>
+            </div>
+
+            <!-- LEVEL 2: Threads -->
+            <div class="flow-row multi-col">
+                <div class="thread-group" id="threads-yt">
+                    <div class="node thread">T1: Video Decode</div>
+                    <div class="node thread">T2: Audio</div>
+                    <div class="node thread">T3: DL Buffer</div>
+                </div>
+                <div class="thread-group" id="threads-wa">
+                    <div class="node thread">T1: UI</div>
+                    <div class="node thread">T2: Network</div>
+                    <div class="node thread">T3: Noti</div>
+                </div>
+            </div>
+
+            <!-- LEVEL 3: OS Scheduler -->
+            <div class="flow-row">
+                <div class="node scheduler" id="os-scheduler">OS Scheduler</div>
+            </div>
+
+            <!-- LEVEL 4: CPU Cores -->
+            <div class="flow-row">
+                <div class="cpu-container" id="cpu">
+                    <div class="cpu-title">6-Core CPU (A19 Pro)</div>
+                    <div class="core-grid">
+                        <div class="node core perf">P-Core 1<br><small>Fetch→Decode→Exec</small></div>
+                        <div class="node core perf">P-Core 2<br><small>Fetch→Decode→Exec</small></div>
+                        <div class="node core eff">E-Core 1<br><small>Fetch→Decode→Exec</small></div>
+                        <div class="node core eff">E-Core 2<br><small>Fetch→Decode→Exec</small></div>
+                        <div class="node core eff">E-Core 3<br><small>Fetch→Decode→Exec</small></div>
+                        <div class="node core eff">E-Core 4<br><small>Fetch→Decode→Exec</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 5: Memory & Display -->
+            <div class="flow-row vertical-stack">
+                <div class="node mem" id="cache">Cache Hierarchy</div>
+                <div class="node mem" id="ram">RAM</div>
+                <div class="node display" id="display">Display Engine</div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- ================= PERSON 2 END ================= -->
+
     <script src="script.js"></script>
 </body>
 </html>

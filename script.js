@@ -1,3 +1,5 @@
+/* ================= PERSON 1 START (COMMENTED OUT) ================= */
+/*
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function runAnimation() {
@@ -134,3 +136,85 @@ async function runAnimation() {
 }
 
 window.onload = runAnimation;
+*/
+/* ================= PERSON 1 END ================= */
+
+/* ================= PERSON 2 START (ACTIVE) ================= */
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function runTechAnimation() {
+    const infoTitle = document.getElementById('info-title');
+    const infoDesc = document.getElementById('info-desc');
+    
+    // Nodes
+    const apps = document.querySelectorAll('.app');
+    const threads = document.querySelectorAll('.thread');
+    const scheduler = document.getElementById('os-scheduler');
+    const cpuContainer = document.getElementById('cpu');
+    const cores = document.querySelectorAll('.core');
+    const cache = document.getElementById('cache');
+    const ram = document.getElementById('ram');
+    const display = document.getElementById('display');
+
+    const allNodes = [...apps, ...threads, scheduler, cpuContainer, ...cores, cache, ram, display];
+
+    function updateInfo(title, desc) {
+        infoTitle.innerText = title;
+        infoDesc.innerText = desc;
+    }
+
+    while (true) {
+        // Reset all nodes
+        allNodes.forEach(node => {
+            if(node) node.classList.remove('active');
+        });
+        
+        updateInfo("System Idle", "Waiting for user input or background tasks.");
+        await wait(2000);
+
+        // Step 1: Multiprogramming (Apps)
+        updateInfo("Multiprogramming", "Multiple applications reside in memory. OS creates distinct processes for YouTube and WhatsApp.");
+        apps.forEach(app => app.classList.add('active'));
+        await wait(4000);
+
+        // Step 2: Multithreading (Threads)
+        updateInfo("Multithreading", "A single application creates multiple threads that run concurrently (UI, Network, Video Decoding, etc).");
+        threads.forEach((thread, index) => {
+            setTimeout(() => thread.classList.add('active'), index * 300);
+        });
+        await wait(4500);
+
+        // Step 3: OS Scheduler
+        updateInfo("OS Scheduler", "The iOS Scheduler decides how to manage these threads and assigns them to the CPU cores.");
+        scheduler.classList.add('active');
+        await wait(3500);
+
+        // Step 4: Multiprocessing (CPU Cores)
+        updateInfo("Multiprocessing & Multitasking", "The A19 Pro 6-Core CPU executes multiple threads in parallel across Performance and Efficiency cores.");
+        cpuContainer.classList.add('active');
+        await wait(1000);
+        cores.forEach((core, index) => {
+            setTimeout(() => core.classList.add('active'), index * 400);
+        });
+        await wait(4500);
+
+        // Step 5: Memory Hierarchy
+        updateInfo("Execution & Memory", "Instructions are fetched, decoded, and executed, utilizing the Cache hierarchy and RAM.");
+        cache.classList.add('active');
+        await wait(1500);
+        ram.classList.add('active');
+        await wait(2500);
+
+        // Step 6: Display
+        updateInfo("Output", "The final rendered frames are sent to the Display Engine to be shown on screen.");
+        display.classList.add('active');
+        await wait(5000);
+
+        // Loop pause
+        updateInfo("Complete", "Workflow complete. Resetting...");
+        await wait(2000);
+    }
+}
+
+window.onload = runTechAnimation;
+/* ================= PERSON 2 END ================= */

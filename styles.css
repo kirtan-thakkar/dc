@@ -1,4 +1,6 @@
-/* Minimalist Digital Whiteboard Reset */
+/* ================= PERSON 1 START (COMMENTED OUT) ================= */
+/*
+// Minimalist Digital Whiteboard Reset 
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,7 +9,7 @@
 
 body {
     font-family: 'Outfit', sans-serif;
-    background-color: #EFEBE4; /* Warm gray outside the slide to make the slide pop */
+    background-color: #EFEBE4; // Warm gray outside the slide to make the slide pop 
     color: #000000;
     display: flex;
     justify-content: center;
@@ -16,19 +18,19 @@ body {
     overflow: hidden;
 }
 
-/* 16:9 Presentation Canvas - FIXED LAYOUT */
+// 16:9 Presentation Canvas - FIXED LAYOUT 
 .presentation-wrapper {
     width: 100%;
-    max-width: 1600px; /* Keep it from getting too huge on ultrawides */
+    max-width: 1600px; // Keep it from getting too huge on ultrawides 
     aspect-ratio: 16 / 9;
-    background-color: #FAF8F5; /* Warm white shade */
+    background-color: #FAF8F5; // Warm white shade 
     position: relative;
     border: 4px solid #000;
     display: flex;
     flex-direction: column;
 }
 
-/* Persistent Header */
+// Persistent Header 
 .main-header {
     text-align: center;
     padding: 30px;
@@ -51,10 +53,10 @@ body {
     font-weight: 800;
 }
 
-/* Scene Setup */
+// Scene Setup 
 .scene {
     position: absolute;
-    top: 130px; /* Below the header */
+    top: 130px; // Below the header 
     left: 0;
     right: 0;
     bottom: 0;
@@ -64,7 +66,7 @@ body {
     padding: 40px;
     background-color: transparent;
     
-    /* Fading mechanism */
+    // Fading mechanism 
     opacity: 0;
     visibility: hidden;
     transition: opacity 1s ease, visibility 1s ease;
@@ -75,7 +77,7 @@ body {
     visibility: visible;
 }
 
-/* Text Styling */
+// Text Styling 
 .scene-title {
     font-size: 2.2rem;
     font-weight: 700;
@@ -91,7 +93,7 @@ body {
     color: #333;
 }
 
-/* Layout Containers (Robust Flexbox) */
+// Layout Containers (Robust Flexbox) 
 .scene-content {
     flex-grow: 1;
     width: 100%;
@@ -112,7 +114,7 @@ body {
     padding: 0 20px;
 }
 
-/* Basic Shapes (Boxes) */
+// Basic Shapes (Boxes) 
 .box {
     width: 250px;
     height: 250px;
@@ -146,7 +148,7 @@ body {
     color: #ccc;
 }
 
-/* Protocol Tags and Text */
+// Protocol Tags and Text 
 .protocol-tag {
     font-size: 1.1rem;
     font-weight: 500;
@@ -177,7 +179,7 @@ body {
     z-index: 5;
 }
 
-/* OSI Journey Sequence */
+// OSI Journey Sequence 
 .osi-journey {
     position: absolute;
     top: 60%;
@@ -208,7 +210,7 @@ body {
 }
 
 
-/* Scene 1: Laser */
+// Scene 1: Laser 
 .action-area {
     flex-grow: 1;
     display: flex;
@@ -244,7 +246,7 @@ body {
     width: 100%;
 }
 
-/* Scene 2: Transit */
+// Scene 2: Transit 
 .transit-area {
     flex-grow: 1;
     display: flex;
@@ -287,15 +289,15 @@ body {
     left: 40px;
     z-index: 3;
     opacity: 0;
-    transition: left 4s linear; /* Slow movement */
+    transition: left 4s linear; // Slow movement 
 }
 
 .data-packet.move {
     opacity: 1;
-    left: calc(100% - 200px); /* Move near server */
+    left: calc(100% - 200px); // Move near server 
 }
 
-/* Scene 3: Calc Steps */
+// Scene 3: Calc Steps 
 .calc-steps {
     margin-top: 20px;
     display: flex;
@@ -324,7 +326,7 @@ body {
     opacity: 1;
 }
 
-/* Scene 4: Sync */
+// Scene 4: Sync 
 .sync-area {
     flex-grow: 1;
     display: flex;
@@ -338,7 +340,7 @@ body {
 .sync-line {
     flex-grow: 1;
     height: 4px;
-    background-color: #ccc; /* Base line */
+    background-color: #ccc; // Base line 
     position: relative;
 }
 
@@ -355,9 +357,9 @@ body {
     z-index: 3;
 }
 
-/* Left sync line */
+// Left sync line 
 #s4-packet-a {
-    right: 0; /* Starts at server */
+    right: 0; // Starts at server 
     transition: right 3s linear;
 }
 #s4-packet-a.move {
@@ -365,9 +367,9 @@ body {
     right: 100%;
 }
 
-/* Right sync line */
+// Right sync line 
 #s4-packet-b {
-    left: 0; /* Starts at server */
+    left: 0; // Starts at server 
     transition: left 3s linear;
 }
 #s4-packet-b.move {
@@ -375,7 +377,7 @@ body {
     left: 100%;
 }
 
-/* Results */
+// Results 
 .result-text {
     margin-top: 30px;
     font-size: 1.4rem;
@@ -393,3 +395,220 @@ body {
 .result-text.show {
     opacity: 1;
 }
+*/
+/* ================= PERSON 1 END ================= */
+
+
+/* ================= PERSON 2 START (ACTIVE) ================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0f1115; /* Dark tech aesthetic */
+    color: #e0e6ed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.tech-wrapper {
+    width: 100%;
+    max-width: 1600px;
+    aspect-ratio: 16 / 9;
+    background: radial-gradient(circle at top, #1a1e26 0%, #0a0b0e 100%);
+    position: relative;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    overflow: hidden;
+}
+
+.tech-header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #2a2e37;
+    background: rgba(20, 24, 32, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.tech-header h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+}
+
+.tech-header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.flowchart {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 30px;
+    position: relative;
+}
+
+.info-panel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid #3b82f6;
+    padding: 15px 25px;
+    border-radius: 8px;
+    width: 350px;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    z-index: 20;
+    transition: all 0.3s ease;
+}
+
+.info-panel h3 {
+    color: #60a5fa;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.info-panel p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #cbd5e1;
+}
+
+.flow-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+}
+
+.flow-row.multi-col {
+    gap: 150px;
+}
+
+.flow-row.vertical-stack {
+    flex-direction: column;
+    gap: 15px;
+}
+
+.thread-group {
+    display: flex;
+    gap: 15px;
+}
+
+.node {
+    background: #1e293b;
+    border: 1px solid #475569;
+    padding: 15px 25px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 150px;
+    transition: all 0.4s ease;
+    opacity: 0.3; /* Dim by default until animated */
+}
+
+.node.active {
+    opacity: 1;
+    border-color: #60a5fa;
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
+    background: #2563eb;
+    color: #fff;
+}
+
+.node.app {
+    font-size: 1.4rem;
+    padding: 20px 40px;
+    border-radius: 12px;
+}
+
+.node.thread {
+    font-size: 1rem;
+    padding: 10px 15px;
+    min-width: 120px;
+    border-radius: 20px;
+}
+
+.node.scheduler {
+    font-size: 1.5rem;
+    padding: 20px 60px;
+    background: #334155;
+    border: 2px solid #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.node.scheduler.active {
+    background: #f59e0b;
+    border-color: #fcd34d;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+.cpu-container {
+    background: rgba(30, 41, 59, 0.5);
+    border: 2px dashed #475569;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    opacity: 0.3;
+    transition: opacity 0.4s ease;
+}
+.cpu-container.active {
+    opacity: 1;
+    border-color: #10b981;
+}
+
+.cpu-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.core-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.node.core {
+    min-width: 130px;
+    padding: 10px;
+    font-size: 1rem;
+}
+.node.core small {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-top: 5px;
+    color: #94a3b8;
+}
+
+.node.core.active {
+    background: #10b981;
+    border-color: #34d399;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+}
+.node.core.active small {
+    color: #ecfdf5;
+}
+
+.node.mem, .node.display {
+    width: 300px;
+}
+/* ================= PERSON 2 END ================= */
