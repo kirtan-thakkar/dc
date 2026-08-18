@@ -11,7 +11,7 @@
     <!-- Person 2 Font (Hand-drawn look) -->
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
 
-    <title>Distributed Computing & OS Architecture</title>
+    <title>ATM Banking Network & OSI Model</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -111,8 +111,8 @@
     <!-- ================= PERSON 2 START (ACTIVE) ================= -->
     <div class="tech-wrapper">
         <header class="tech-header">
-            <h2>iPhone 17 Pro (A19 Pro)</h2>
-            <h1>OS Architecture & Flow</h1>
+            <h2>Lab 2: Distributed Systems</h2>
+            <h1>ATM Banking Network</h1>
         </header>
 
         <!-- Use a 2-column layout to prevent overlaps -->
@@ -122,74 +122,68 @@
             <div class="sidebar">
                 <div class="info-panel" id="info-panel">
                     <h3 id="info-title">System Idle</h3>
-                    <p id="info-desc">Waiting for user input.</p>
+                    <p id="info-desc">Waiting for customer to insert card.</p>
                 </div>
             </div>
 
             <!-- RIGHT COLUMN: The Flowchart -->
             <div class="flowchart">
                 
-                <!-- LEVEL 1: Apps -->
+                <!-- ROW 1: Customer -->
                 <div class="flow-row">
-                    <div class="node app rough-box" id="app-yt">YouTube App</div>
-                    <div class="node app rough-box" id="app-wa">WhatsApp</div>
+                    <div class="node app rough-box" id="customer">Customer</div>
                 </div>
 
                 <div class="flow-row">
-                    <div class="arrow" id="arrow-1">↓ processes spawned ↓</div>
+                    <div class="arrow" id="arrow-1">↓</div>
                 </div>
 
-                <!-- LEVEL 2: Threads -->
-                <div class="flow-row multi-col">
-                    <div class="thread-group" id="threads-yt">
-                        <div class="node thread rough-box">T1: Video</div>
-                        <div class="node thread rough-box">T2: Audio</div>
-                        <div class="node thread rough-box">T3: Buffer</div>
-                    </div>
-                    <div class="thread-group" id="threads-wa">
-                        <div class="node thread rough-box">T1: UI</div>
-                        <div class="node thread rough-box">T2: Network</div>
-                        <div class="node thread rough-box">T3: Noti</div>
-                    </div>
+                <!-- ROW 2: ATM Client -->
+                <div class="flow-row">
+                    <div class="node app rough-box" id="atm">ATM (Client)</div>
                 </div>
 
                 <div class="flow-row">
-                    <div class="arrow" id="arrow-2">↓ threads scheduled ↓</div>
+                    <div class="arrow" id="arrow-2">↓ Request (OSI Encapsulation) ↓</div>
                 </div>
 
-                <!-- LEVEL 3: OS Scheduler -->
+                <!-- ROW 3: OSI Layers (Compact horizontal/wrap to save vertical space) -->
                 <div class="flow-row">
-                    <div class="node scheduler rough-box" id="os-scheduler">OS Scheduler</div>
-                </div>
-
-                <div class="flow-row">
-                    <div class="arrow" id="arrow-3">↓ mapped to cores ↓</div>
-                </div>
-
-                <!-- LEVEL 4: CPU Cores -->
-                <div class="flow-row">
-                    <div class="cpu-container rough-box" id="cpu">
-                        <div class="cpu-title">6-Core CPU</div>
-                        <div class="core-grid">
-                            <div class="node core perf rough-box">P-Core 1<br><small>Fetch→Decode→Exec</small></div>
-                            <div class="node core perf rough-box">P-Core 2<br><small>Fetch→Decode→Exec</small></div>
-                            <div class="node core eff rough-box">E-Core 1<br><small>Fetch→Decode→Exec</small></div>
-                            <div class="node core eff rough-box">E-Core 2<br><small>Fetch→Decode→Exec</small></div>
-                            <div class="node core eff rough-box">E-Core 3<br><small>Fetch→Decode→Exec</small></div>
-                            <div class="node core eff rough-box">E-Core 4<br><small>Fetch→Decode→Exec</small></div>
+                    <div class="osi-container rough-box" id="osi-stack">
+                        <div class="osi-grid">
+                            <div class="node core rough-box" id="l7">L7 Application<br><small>Withdrawal request created</small></div>
+                            <div class="node core rough-box" id="l6">L6 Presentation<br><small>Encrypts / formats data</small></div>
+                            <div class="node core rough-box" id="l5">L5 Session<br><small>Manages connection</small></div>
+                            <div class="node core rough-box" id="l4">L4 Transport<br><small>TCP segments data</small></div>
+                            <div class="node core rough-box" id="l3">L3 Network<br><small>IP address added</small></div>
+                            <div class="node core rough-box" id="l2">L2 DataLink<br><small>MAC address added</small></div>
+                            <div class="node core rough-box" id="l1">L1 Physical<br><small>Bits transmitted (cable/fiber)</small></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="flow-row">
-                    <div class="arrow" id="arrow-4">↓ data flows to memory ↓</div>
+                    <div class="arrow" id="arrow-3">↓ Network ↓</div>
                 </div>
 
-                <!-- LEVEL 5: Memory & Display -->
-                <div class="flow-row vertical-stack">
-                    <div class="node mem rough-box" id="cache">Cache Hierarchy</div>
-                    <div class="node mem rough-box" id="ram">RAM</div>
-                    <div class="node display rough-box" id="display">Display Output</div>
+                <!-- ROW 4: Bank Server -->
+                <div class="flow-row">
+                    <div class="server-container rough-box" id="bank-server">
+                        <div class="cpu-title">Bank Server (Distributed System)</div>
+                        <div class="core-grid">
+                            <div class="node core rough-box" id="svr-auth">Authentication</div>
+                            <div class="node core rough-box" id="svr-tx">Transaction Processing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-row">
+                    <div class="arrow" id="arrow-4">↓ Database Query ↓</div>
+                </div>
+
+                <!-- ROW 5: Database -->
+                <div class="flow-row">
+                    <div class="node mem rough-box" id="database">Database (Result)</div>
                 </div>
                 
             </div>

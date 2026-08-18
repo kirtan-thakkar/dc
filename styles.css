@@ -492,7 +492,7 @@ body {
     width: 100%;
     border-radius: 2px 15px 3px 10px;
     transform: rotate(-2deg);
-    transition: none; /* Removed smooth transition for a snappier, "rough" feel */
+    transition: none; /* Snappy feel */
     box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
 }
 
@@ -518,15 +518,6 @@ body {
     position: relative;
 }
 
-.flow-row.multi-col {
-    gap: 40px;
-}
-
-.flow-row.vertical-stack {
-    flex-direction: column;
-    gap: 8px;
-}
-
 /* Base Node - Hand-drawn imperfect boxes */
 .rough-box {
     background: #fff;
@@ -549,30 +540,15 @@ body {
     transform: scale(1.03) rotate(-1deg);
 }
 
-/* Specific Sizes */
+/* Specific Node Sizes */
 .node.app {
-    font-size: 1.3rem;
-    padding: 8px 20px;
-}
-
-.thread-group {
-    display: flex;
-    gap: 10px;
-}
-.node.thread {
-    font-size: 1rem;
-    padding: 5px 10px;
-    min-width: 90px;
-}
-
-.node.scheduler {
     font-size: 1.4rem;
-    padding: 10px 40px;
-    border-radius: 20px 5px 15px 8px;
+    padding: 8px 30px;
+    min-width: 150px;
 }
 
-/* Big CPU Box */
-.cpu-container {
+/* Big Server Box */
+.server-container, .osi-container {
     background: #f9f9f9;
     border: 4px dashed #000;
     padding: 10px;
@@ -581,7 +557,7 @@ body {
     transition: opacity 0.1s;
     border-radius: 10px 2px 12px 5px;
 }
-.cpu-container.active {
+.server-container.active, .osi-container.active {
     opacity: 1;
     border-color: #000;
 }
@@ -594,38 +570,52 @@ body {
     text-decoration: underline;
 }
 
+/* OSI Grid (4 items top, 3 items bottom) */
+.osi-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    max-width: 600px; /* Force it to wrap properly */
+}
+
 .core-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 .node.core {
-    min-width: 100px;
+    min-width: 90px;
     padding: 5px 8px;
     font-size: 1rem;
+    border-width: 3px;
+}
+.node.core.active {
+    border-width: 4px;
 }
 .node.core small {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: normal;
-    margin-top: 3px;
+    margin-top: 2px;
     color: #555;
+    font-family: Arial, sans-serif; /* Fallback for small legible text */
 }
 
-.node.mem, .node.display {
+.node.mem {
     width: 250px;
-    font-size: 1.2rem;
-    padding: 5px 10px;
+    font-size: 1.3rem;
+    padding: 8px 10px;
 }
 
 /* Flowchart Arrows */
 .arrow {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: #000;
     opacity: 0;
-    margin: 0; /* Ensures it takes up standard space and doesn't push away or overlap */
+    margin: 0; 
 }
 
 .arrow.active {

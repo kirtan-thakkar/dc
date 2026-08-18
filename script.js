@@ -147,17 +147,23 @@ async function runTechAnimation() {
     const infoDesc = document.getElementById('info-desc');
     
     // Nodes
-    const apps = document.querySelectorAll('.app');
+    const customer = document.getElementById('customer');
+    const atm = document.getElementById('atm');
+    const osiContainer = document.getElementById('osi-stack');
+    const l7 = document.getElementById('l7');
+    const l6 = document.getElementById('l6');
+    const l5 = document.getElementById('l5');
+    const l4 = document.getElementById('l4');
+    const l3 = document.getElementById('l3');
+    const l2 = document.getElementById('l2');
+    const l1 = document.getElementById('l1');
+    const serverBox = document.getElementById('bank-server');
+    const svrAuth = document.getElementById('svr-auth');
+    const svrTx = document.getElementById('svr-tx');
+    const database = document.getElementById('database');
     const arrows = document.querySelectorAll('.arrow');
-    const threads = document.querySelectorAll('.thread');
-    const scheduler = document.getElementById('os-scheduler');
-    const cpuContainer = document.getElementById('cpu');
-    const cores = document.querySelectorAll('.core');
-    const cache = document.getElementById('cache');
-    const ram = document.getElementById('ram');
-    const display = document.getElementById('display');
 
-    const allNodes = [...apps, ...arrows, ...threads, scheduler, cpuContainer, ...cores, cache, ram, display];
+    const allNodes = [customer, atm, osiContainer, l7, l6, l5, l4, l3, l2, l1, serverBox, svrAuth, svrTx, database, ...arrows];
 
     function updateInfo(title, desc) {
         infoTitle.innerText = title;
@@ -170,62 +176,86 @@ async function runTechAnimation() {
             if(node) node.classList.remove('active');
         });
         
-        updateInfo("System Idle", "Waiting for user input or background tasks.");
+        updateInfo("System Idle", "Waiting for customer to insert card.");
         await wait(2000);
 
-        // Step 1: Multiprogramming (Apps)
-        updateInfo("Multiprogramming", "Multiple applications reside in memory. OS creates distinct processes for YouTube and WhatsApp.");
-        apps.forEach(app => app.classList.add('active'));
-        await wait(2000);
+        // Step 1: Customer
+        updateInfo("Customer Action", "Customer initiates a withdrawal request at the ATM.");
+        customer.classList.add('active');
+        await wait(1500);
         
         document.getElementById('arrow-1').classList.add('active');
-        await wait(2000);
+        await wait(500);
 
-        // Step 2: Multithreading (Threads)
-        updateInfo("Multithreading", "A single application creates multiple threads that run concurrently (UI, Network, Video Decoding, etc).");
-        threads.forEach((thread, index) => {
-            // Snappy toggles instead of smooth fades
-            setTimeout(() => thread.classList.add('active'), index * 400);
-        });
-        await wait(4500);
+        // Step 2: ATM Client
+        updateInfo("ATM (Client)", "The ATM prepares the data message to send to the Bank Server.");
+        atm.classList.add('active');
+        await wait(2000);
         
         document.getElementById('arrow-2').classList.add('active');
+        await wait(500);
+
+        // Step 3: OSI Encapsulation
+        osiContainer.classList.add('active');
+        
+        updateInfo("L7: Application Layer", "Withdrawal request data is created by the ATM application.");
+        l7.classList.add('active');
+        await wait(1500);
+        
+        updateInfo("L6: Presentation Layer", "Data is formatted and encrypted for secure transit.");
+        l6.classList.add('active');
         await wait(1500);
 
-        // Step 3: OS Scheduler
-        updateInfo("OS Scheduler", "The iOS Scheduler decides how to manage these threads and assigns them to the CPU cores.");
-        scheduler.classList.add('active');
-        await wait(3000);
+        updateInfo("L5: Session Layer", "Manages and maintains the secure connection to the bank.");
+        l5.classList.add('active');
+        await wait(1500);
+
+        updateInfo("L4: Transport Layer", "TCP segments the data, ensuring reliable delivery.");
+        l4.classList.add('active');
+        await wait(1500);
+
+        updateInfo("L3: Network Layer", "IP addressing is added to route the packet to the server.");
+        l3.classList.add('active');
+        await wait(1500);
+
+        updateInfo("L2: DataLink Layer", "MAC addressing is added for local node-to-node transfer.");
+        l2.classList.add('active');
+        await wait(1500);
+
+        updateInfo("L1: Physical Layer", "The fully encapsulated packet is transmitted as bits over fiber/cable.");
+        l1.classList.add('active');
+        await wait(2500);
         
         document.getElementById('arrow-3').classList.add('active');
+        await wait(1000);
+
+        // Step 4: Bank Server
+        updateInfo("Bank Server", "The Distributed System receives the request from the network.");
+        serverBox.classList.add('active');
         await wait(1500);
 
-        // Step 4: Multiprocessing (CPU Cores)
-        updateInfo("Multiprocessing & Multitasking", "The 6-Core CPU executes multiple threads in parallel across Performance and Efficiency cores.");
-        cpuContainer.classList.add('active');
-        await wait(1000);
-        cores.forEach((core, index) => {
-            setTimeout(() => core.classList.add('active'), index * 500);
-        });
-        await wait(4500);
+        updateInfo("Authentication", "Authentication Server verifies PIN and identity.");
+        svrAuth.classList.add('active');
+        await wait(1500);
+
+        updateInfo("Transaction Processing", "Transaction Server processes the withdrawal logic.");
+        svrTx.classList.add('active');
+        await wait(2000);
         
         document.getElementById('arrow-4').classList.add('active');
-        await wait(1500);
+        await wait(1000);
 
-        // Step 5: Memory Hierarchy
-        updateInfo("Execution & Memory", "Instructions are fetched, decoded, and executed, utilizing the Cache hierarchy and RAM.");
-        cache.classList.add('active');
-        await wait(1500);
-        ram.classList.add('active');
-        await wait(2500);
+        // Step 5: Database
+        updateInfo("Database", "Account balance is updated. A 'Result' is returned to the server.");
+        database.classList.add('active');
+        await wait(3000);
 
-        // Step 6: Display
-        updateInfo("Output", "The final rendered frames are sent to the Display Engine to be shown on screen.");
-        display.classList.add('active');
-        await wait(6000);
+        // Step 6: Response
+        updateInfo("Response", "The Bank Server sends a Response back to the ATM (Layers 7 down to 1 again), dispensing cash to the Customer.");
+        await wait(5000);
 
         // Loop pause
-        updateInfo("Complete", "Workflow complete. Erasing whiteboard...");
+        updateInfo("Complete", "Transaction complete. Resetting whiteboard...");
         await wait(2000);
     }
 }
