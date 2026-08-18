@@ -148,6 +148,7 @@ async function runTechAnimation() {
     
     // Nodes
     const apps = document.querySelectorAll('.app');
+    const arrows = document.querySelectorAll('.arrow');
     const threads = document.querySelectorAll('.thread');
     const scheduler = document.getElementById('os-scheduler');
     const cpuContainer = document.getElementById('cpu');
@@ -156,7 +157,7 @@ async function runTechAnimation() {
     const ram = document.getElementById('ram');
     const display = document.getElementById('display');
 
-    const allNodes = [...apps, ...threads, scheduler, cpuContainer, ...cores, cache, ram, display];
+    const allNodes = [...apps, ...arrows, ...threads, scheduler, cpuContainer, ...cores, cache, ram, display];
 
     function updateInfo(title, desc) {
         infoTitle.innerText = title;
@@ -175,28 +176,41 @@ async function runTechAnimation() {
         // Step 1: Multiprogramming (Apps)
         updateInfo("Multiprogramming", "Multiple applications reside in memory. OS creates distinct processes for YouTube and WhatsApp.");
         apps.forEach(app => app.classList.add('active'));
-        await wait(4000);
+        await wait(2000);
+        
+        document.getElementById('arrow-1').classList.add('active');
+        await wait(2000);
 
         // Step 2: Multithreading (Threads)
         updateInfo("Multithreading", "A single application creates multiple threads that run concurrently (UI, Network, Video Decoding, etc).");
         threads.forEach((thread, index) => {
-            setTimeout(() => thread.classList.add('active'), index * 300);
+            // Snappy toggles instead of smooth fades
+            setTimeout(() => thread.classList.add('active'), index * 400);
         });
         await wait(4500);
+        
+        document.getElementById('arrow-2').classList.add('active');
+        await wait(1500);
 
         // Step 3: OS Scheduler
         updateInfo("OS Scheduler", "The iOS Scheduler decides how to manage these threads and assigns them to the CPU cores.");
         scheduler.classList.add('active');
-        await wait(3500);
+        await wait(3000);
+        
+        document.getElementById('arrow-3').classList.add('active');
+        await wait(1500);
 
         // Step 4: Multiprocessing (CPU Cores)
-        updateInfo("Multiprocessing & Multitasking", "The A19 Pro 6-Core CPU executes multiple threads in parallel across Performance and Efficiency cores.");
+        updateInfo("Multiprocessing & Multitasking", "The 6-Core CPU executes multiple threads in parallel across Performance and Efficiency cores.");
         cpuContainer.classList.add('active');
         await wait(1000);
         cores.forEach((core, index) => {
-            setTimeout(() => core.classList.add('active'), index * 400);
+            setTimeout(() => core.classList.add('active'), index * 500);
         });
         await wait(4500);
+        
+        document.getElementById('arrow-4').classList.add('active');
+        await wait(1500);
 
         // Step 5: Memory Hierarchy
         updateInfo("Execution & Memory", "Instructions are fetched, decoded, and executed, utilizing the Cache hierarchy and RAM.");
@@ -208,10 +222,10 @@ async function runTechAnimation() {
         // Step 6: Display
         updateInfo("Output", "The final rendered frames are sent to the Display Engine to be shown on screen.");
         display.classList.add('active');
-        await wait(5000);
+        await wait(6000);
 
         // Loop pause
-        updateInfo("Complete", "Workflow complete. Resetting...");
+        updateInfo("Complete", "Workflow complete. Erasing whiteboard...");
         await wait(2000);
     }
 }
